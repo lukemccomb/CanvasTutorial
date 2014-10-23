@@ -15,14 +15,18 @@ HTML5 Canvas is a super-cool tool for drawing, animating, making games, and more
 </html>
 ```
 
-You may wish to add a CSS border around your canvas to clearly see it. In your javascript file, hook up a variable to the context of the canvas to begin drawing. We're going to use the "2d" context, though there is an experimental "webgl" context that is only on browsers running WebGL. 
+You may wish to add a CSS border around your canvas to clearly see it. In your javascript file, 
+hook up a variable to the context of the canvas to begin drawing. We're going to use the "2d" context, 
+though there is an experimental "webgl" context that is only on browsers running WebGL. 
 
 ```
 var canvas = document.getElementById('my-canvas');
 var ctx = canvas.getContext('2d');
 ```
 ## Line
-Now we're ready to begin drawing our first line! Paths all have a beginning, movement, and an end. They also have some options that must be set before drawing a line on the path. This includes things like a width, color, and style for a path end. In the javascript file continue writing: 
+Now we're ready to begin drawing our first line! Paths all have a beginning, movement, and an end. 
+They also have some options that must be set before drawing a line on the path. 
+This includes things like a width, color, and style for a path end. In the javascript file continue writing: 
 
 ```
 ctx.lineWidth = 10;
@@ -30,7 +34,9 @@ ctx.strokeStyle = "#ff0000";
 ctx.lineCap = 'round';
 ```
 
-`lineWidth` sets the width, `strokeStyle` is the color, and `lineCap` sets the line end styling (`round`, `square`, and `butt` are the `lineCap` options). Now we will start the path at a point, move to a new point, and stroke on the line we just made. Continue writing:
+`lineWidth` sets the width, `strokeStyle` is the color, and `lineCap` sets the line end styling 
+(`round`, `square`, and `butt` are the `lineCap` options). Now we will start the path at a point,
+ move to a new point, and stroke on the line we just made. Continue writing:
 
 ```
 ctx.beginPath();
@@ -39,9 +45,13 @@ ctx.lineTo(250, 400);
 ctx.stroke();
 ```
 
-Yay a line! First `beginPath()` starts a new path. The starting location is defined with `moveTo(x,y)`. **It is important to note that y increases as you go down the page while x increases from left to right.** `lineTo(x,y)` sets the way we draw a line and to which location we will draw. Finally we stroke the line we just set.
+Yay a line! First `beginPath()` starts a new path. The starting location is defined with `moveTo(x,y)`. 
+**It is important to note that y increases as you go down the page while x increases from left to right.** 
+`lineTo(x,y)` sets the way we draw a line and to which location we will draw. Finally we stroke the line we just set.
    
-Next let us draw a second line of another color. To accomplish this, set a new stroke style and begin a new path in your brand new color. We'll draw a V back up to the top with a blue line (afterwards, play around with the `lineCap` property to see how they look with this setup)
+Next let us draw a second line of another color. To accomplish this, set a new stroke style and begin a new path in your 
+brand new color. We'll draw a V back up to the top with a blue line (afterwards, play around with the `lineCap` property 
+to see how they look with this setup)
 
 ```
 ctx.strokeStyle = '#0000ff';
@@ -51,7 +61,8 @@ ctx.lineTo(500, 0);
 ctx.stroke();
 ```
 
-Great! Two separate lines- but I what if I draw one line with an angle in it, not two separate lines? I'll need that to make the angle look nice. Let us all remember Bob Ross and put a happy little angle in our line. Continue writing:
+Great! Two separate lines- but I what if I draw one line with an angle in it, not two separate lines? 
+I'll need that to make the angle look nice. Let us all remember Bob Ross and put a happy little angle in our line. Continue writing:
 
 ```
 ctx.strokeStyle = '#00ff00';
@@ -63,11 +74,15 @@ ctx.lineJoin = 'round';
 ctx.stroke();
 ```
 
-Here we see two consecutive `lineTo(x,y)` to draw our angle. Next is the new `lineJoin` property which accepts `'round'`, `'miter'`, and `'bevel'`. Test each to see how they look then we'll move on.
+Here we see two consecutive `lineTo(x,y)` to draw our angle. Next is the new `lineJoin` property which accepts `'round'`,
+ `'miter'`, and `'bevel'`. Test each to see how they look then we'll move on.
 
 ## Arc
 
-We're going to look at circular arcs. The `arc` method draws portions of a circle- let us draw one at the center of canvas. It takes a [center x,y coordinate, a radius, a start and end angle, and a stroke direction](http://www.html5canvastutorials.com/demos/tutorials/html5-canvas-arcs/html5-canvas-arcs-diagram.png). Since this is javascript, let us start passing variables into our method arguments to see what *that* looks like.
+We're going to look at circular arcs. The `arc` method draws portions of a circle- let us draw one at the center of canvas. 
+It takes a [center x,y coordinate, a radius, a start and end angle, and a stroke direction]
+(http://www.html5canvastutorials.com/demos/tutorials/html5-canvas-arcs/html5-canvas-arcs-diagram.png). 
+Since this is javascript, let us start passing variables into our method arguments to see what *that* looks like.
 
 ```
 var x = canvas.width / 2;
@@ -86,11 +101,16 @@ ctx.arc(x, y, radius, startAngle, endAngle, counterClockwise);
 ctx.stroke();
 ```
 
-Notice how we can get the center of the canvas via `canvas.width` and `canvas.height`, and that the start and end angles are all based on [radians](http://en.wikipedia.org/wiki/Radian). Radians measure angles starting at 0 and up to 2π, while degrees measure from 0 to 360. If you want a perfect circle, pass `0` and `2*Math.PI` for your start and end angles.  Change the multiplier for start and end angles between 0 and 2 to see the effect on the arc, playing with the direction boolean as you go.
+Notice how we can get the center of the canvas via `canvas.width` and `canvas.height`, and that the start and end angles are all based on 
+[radians](http://en.wikipedia.org/wiki/Radian). Radians measure angles starting at 0 and up to 2π, while degrees measure from 0 to 360. I
+f you want a perfect circle, pass `0` and `2*Math.PI` for your start and end angles.  
+Change the multiplier for start and end angles between 0 and 2 to see the effect on the arc, playing with the direction boolean as you go.
 
 ## Quadratic Curve
 
-I don't want some circley shaped ne'er-do-well plebeian curve. I want to bend it any which way I want- so I'll need it to [take a beginning point, a control point, and an end point](http://www.html5canvastutorials.com/demos/tutorials/html5-canvas-quadratic-curves/html5-canvas-quadratic-curves-diagram.png) to define my very own quadratic curve.
+I don't want some circley shaped ne'er-do-well plebeian curve. I want to bend it any which way I want- so I'll need it to 
+[take a beginning point, a control point, and an end point](http://www.html5canvastutorials.com/demos/tutorials/html5-canvas-quadratic-curves/html5-canvas-quadratic-curves-diagram.png) 
+to define my very own quadratic curve.
  
 ```
 var contextX = 240;
@@ -114,7 +134,9 @@ ctx.stroke();
  
 ## Bezier Curve
 
-A single control point is alright. Pretty cool I guess. Two is where it is at, and that is precisely what `bezierCurveTo` takes- [two control point coordinates and an ending point](http://www.html5canvastutorials.com/demos/tutorials/html5-canvas-bezier-curves/html5-canvas-bezier-curves-diagram.png). This enables more nuanced curves with bubbles and contractions all over. 
+A single control point is alright. Pretty cool I guess. Two is where it is at, and that is precisely what `bezierCurveTo` takes- 
+[two control point coordinates and an ending point](http://www.html5canvastutorials.com/demos/tutorials/html5-canvas-bezier-curves/html5-canvas-bezier-curves-diagram.png). 
+This enables more nuanced curves with bubbles and contractions all over. 
  
 ```
 var contextX = 240;
